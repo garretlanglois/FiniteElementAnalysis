@@ -30,14 +30,14 @@ def gradshape(xi):
 print('CREATING MESH')
 
 #Number of elements in the x direction
-mesh_ex = 9
+mesh_ex = 2
 
 #Number of elements in the y direction
-mesh_ey = 49
+mesh_ey = 2
 
 #Size of the mesh in the x and y directions (i.e. the size of the object)
-mesh_lx = 30.0
-mesh_ly = 80.0
+mesh_lx = 2
+mesh_ly = 2
 
 #The number of nodes in each direction
 mesh_nx = mesh_ex + 1
@@ -128,6 +128,8 @@ for c in conn:
         B[2,0::2] = dN[1,:]
         B[2,1::2] = dN[0,:]
 
+
+        #Creates the individual element stiffness matrix
         Ke += np.dot(np.dot(B.T,C), B) * np.linalg.det(J)
     
     for i, I in enumerate(c):
@@ -140,7 +142,11 @@ for c in conn:
 print("NODAL FORCES AND BOUNDARY CONDITIONS")
 f = np.zeros(2*num_nodes)
 
+for i in range(len(K)):
+    print(K[i])
+
 for i in range(num_nodes):
+
     if nodes[i, 1] == 0.0:
         K[2*i,:] = 0.0
         K[2*i+1,:] = 0.0
@@ -150,7 +156,7 @@ for i in range(num_nodes):
     #Define the load that is placed at the boundary
     if nodes[i,1] == mesh_ly:
         x = nodes[i, 0]
-        f[2*i+1] = 80.0
+        f[2*i+1] = 10.0
         if x == 0.0 or x == mesh_lx:
             f[2*i+1] *= 0.5
 
