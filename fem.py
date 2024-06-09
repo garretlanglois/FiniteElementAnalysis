@@ -36,8 +36,8 @@ mesh_ex = 9
 mesh_ey = 49
 
 #Size of the mesh in the x and y directions (i.e. the size of the object)
-mesh_lx = 10.0
-mesh_ly = 50.0
+mesh_lx = 30.0
+mesh_ly = 80.0
 
 #The number of nodes in each direction
 mesh_nx = mesh_ex + 1
@@ -150,7 +150,7 @@ for i in range(num_nodes):
     #Define the load that is placed at the boundary
     if nodes[i,1] == mesh_ly:
         x = nodes[i, 0]
-        f[2*i+1] = 20.0
+        f[2*i+1] = 80.0
         if x == 0.0 or x == mesh_lx:
             f[2*i+1] *= 0.5
 
